@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission 2026: The Alternative Power | Balen Shah</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF3B30;
+            --secondary: #1a1a1a;
+            --accent: #00D9FF;
+            --bg-dark: #0a0a0a;
+            --bg-light: #f5f5f5;
+            --text-light: #ffffff;
+            --text-dark: #1a1a1a;
+            --gradient-1: linear-gradient(135deg, #FF3B30 0%, #FF6B35 100%);
+            --gradient-2: linear-gradient(135deg, #00D9FF 0%, #0099CC 100%);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: 
+                linear-gradient(135deg, rgba(255, 59, 48, 0.1) 0%, rgba(0, 217, 255, 0.1) 100%),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 59, 48, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(0, 217, 255, 0.15) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 1200px;
+        }
+
+        .mission-badge {
+            display: inline-block;
+            background: var(--gradient-1);
+            padding: 0.5rem 2rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            margin-bottom: 2rem;
+            clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+            animation: slideInDown 1s ease-out;
+        }
+
+        /* 1. Create a container for the Title + Image */
+    .hero-header {
+        display: flex;
+        align-items: center;      /* Vertically aligns image with middle of text */
+        justify-content: center;   /* Centers the group on the page */
+        gap: 40px;                /* Space between text and Balen's portrait */
+        margin-bottom: 2rem;
+        text-align: left;         /* Keeps the h1 text aligned left */
+    }
+
+    /* 2. Update the Portrait Styling */
+    .balen-portrait {
+        /* REMOVE position: absolute, top, and right */
+        width: 160px;             /* Made slightly larger as requested */
+        height: 160px;
+        border-radius: 50%;
+        border: 4px solid var(--primary);
+        box-shadow: 0 0 40px rgba(255, 59, 48, 0.7), 0 0 80px rgba(0, 217, 255, 0.4);
+        z-index: 3;
+        animation: portraitPulse 3s ease-in-out infinite;
+        object-fit: cover;
+        flex-shrink: 0;           /* Ensures the image doesn't get squashed */
+    }
+
+    /* 3. Mobile Adjustment */
+    @media (max-width: 768px) {
+        .hero-header {
+            flex-direction: column-reverse; /* Stacks image on top for mobile */
+            gap: 20px;
+            text-align: center;
+        }
+        .balen-portrait {
+            width: 120px;
+            height: 120px;
+        }
+    }
+
+        @keyframes portraitPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(255, 59, 48, 0.6), 0 0 60px rgba(0, 217, 255, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(255, 59, 48, 0.8), 0 0 80px rgba(0, 217, 255, 0.5); }
+        }
+
+        @keyframes slideInDown {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 10vw, 8rem);
+            line-height: 0.9;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 300;
+            margin-bottom: 3rem;
+            color: var(--accent);
+            animation: fadeIn 1s ease-out 0.4s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease-out 0.6s both;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 59, 48, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: var(--bg-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            margin-bottom: 1rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Data Visualization Cards */
+        .viz-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .viz-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 0;
+            position: relative;
+            overflow: hidden;
+            clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+        }
+
+        .viz-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-1);
+        }
+
+        .viz-title {
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-bottom: 1rem;
+        }
+
+        .viz-insight {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Transparency Dashboard */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .achievement-card {
+            background: var(--gradient-2);
+            padding: 2rem;
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
+            transition: transform 0.3s ease;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .achievement-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .achievement-desc {
+            color: rgba(0, 0, 0, 0.8);
+            font-size: 1rem;
+        }
+
+        /* Interactive Map */
+        .map-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            min-height: 500px;
+        }
+
+        .map-visual {
+            width: 100%;
+            height: 500px;
+            background: 
+                linear-gradient(135deg, rgba(255, 59, 48, 0.1) 0%, rgba(0, 217, 255, 0.1) 100%),
+                repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255, 255, 255, 0.02) 20px, rgba(255, 255, 255, 0.02) 40px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .map-marker {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            animation: markerPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes markerPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7); }
+            50% { transform: scale(1.1); box-shadow: 0 0 0 20px rgba(255, 59, 48, 0); }
+        }
+
+        .map-marker:hover {
+            transform: scale(1.2);
+        }
+
+        .map-info {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .map-stat {
+            padding: 1rem;
+            background: rgba(0, 217, 255, 0.1);
+            border-left: 3px solid var(--accent);
+        }
+
+        /* Donation Tracker */
+        .donation-tracker {
+            background: linear-gradient(135deg, rgba(255, 59, 48, 0.1) 0%, rgba(0, 217, 255, 0.1) 100%);
+            padding: 3rem;
+            margin: 3rem 0;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            clip-path: polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px);
+        }
+
+        .donation-amount {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--accent);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-2);
+            transition: width 2s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .payment-options {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .payment-btn {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-btn:hover {
+            background: var(--accent);
+            color: var(--bg-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Social Feed */
+        .social-feed {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .social-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .social-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .social-platform {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .social-content {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .social-meta {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+
+        /* Alliance Section */
+        .alliance-banner {
+            background: var(--gradient-1);
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 3rem 0;
+            clip-path: polygon(0 30px, 30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
+        }
+
+        .alliance-banner h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .alliance-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .logo-box {
+            width: 150px;
+            height: 150px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--primary);
+            clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+        }
+
+        /* Agenda Cards */
+        .agenda-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .agenda-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+            border-left: 4px solid var(--accent);
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .agenda-card:hover {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.15) 0%, rgba(0, 217, 255, 0.05) 100%);
+            transform: translateX(10px);
+        }
+
+        .agenda-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .agenda-title {
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .agenda-desc {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            padding: 3rem 2rem;
+            border-top: 4px solid var(--primary);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .viz-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 4rem;
+            }
+
+            .stats-bar {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .map-visual {
+                height: 300px;
+            }
+
+            .donation-amount {
+                font-size: 3rem;
+            }
+
+            .agenda-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Victory Comparison Table */
+        .comparison-table {
+            width: 100%;
+            margin-top: 2rem;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: var(--gradient-1);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .comparison-table tr:hover td {
+            background: rgba(0, 217, 255, 0.05);
+        }
+
+        .winner-row td {
+            background: rgba(255, 59, 48, 0.1);
+            font-weight: 700;
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+    <div class="hero-content">
+        <div class="mission-badge">MISSION 2026 — नेपालको नयाँ युग</div>
+        
+        <div class="hero-header">
+            <h1>THE ALTERNATIVE<br>POWER</h1>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq5yQwnr_J-YSEjWjM4GBKjybc0G-w5mwz8mhNko3av52YiTsIQvyJFDABE9Bnb7XlQGEAtmJoQR4G9zESqz70JcaDxLGKE7lHCDnIFGE&s=10" alt="Balen Shah" class="balen-portrait">
+        </div>
+
+        <p class="subtitle">Breaking the Old Guard. Building Nepal's Future.</p>
+        <div style="max-width: 700px; margin: 0 auto 3rem; padding: 1.5rem; background: rgba(255, 59, 48, 0.1); border-left: 4px solid var(--primary); border-right: 4px solid var(--accent); animation: fadeIn 1s ease-out 0.6s both;">
+                <p style="font-family: 'Space Mono', monospace; font-size: 1.1rem; line-height: 1.8; color: rgba(255, 255, 255, 0.95); margin: 0; font-style: italic;">
+                    "Politics is not about parties. It's about people. When you serve with transparency, when you lead with integrity, when you put Nepal first—that's when real change happens."
+                </p>
+                <p style="text-align: right; margin-top: 1rem; color: var(--accent); font-weight: 700; font-size: 1.1rem;">— Balen Shah</p>
+        </div>
+    </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <span class="stat-number">61,767</span>
+            <span class="stat-label">2022 Victory Votes</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">1M+</span>
+            <span class="stat-label">New Gen Z Voters</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">38.6%</span>
+            <span class="stat-label">2022 Vote Share</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Transparency</span>
+        </div>
+    </div>
+
+    <!-- Data Visualization Section -->
+    <section id="data">
+        <div class="section-header reveal">
+            <h2 class="section-title">THE DATA SPEAKS</h2>
+            <p class="section-subtitle">Numbers don't lie. See why the alternative power is inevitable.</p>
+        </div>
+
+        <div class="viz-grid">
+            <!-- 2022 Victory Chart -->
+            <div class="viz-card reveal">
+                <h3 class="viz-title">2022 Victory: The Outsider Win</h3>
+                <div class="chart-container">
+                    <canvas id="victoryChart"></canvas>
+                </div>
+                <p class="viz-insight">
+                    <strong>HISTORIC UPSET:</strong> Balen Shah defeated establishment candidates with 38.6% of the vote, proving that independent leadership resonates with Kathmandu's voters. No party backing. No dynasty. Just vision.
+                </p>
+            </div>
+
+            <!-- Jhapa-5 Dynamics -->
+            <div class="viz-card reveal">
+                <h3 class="viz-title">Jhapa-5: The Swing Potential</h3>
+                <div class="chart-container">
+                    <canvas id="jhapaChart"></canvas>
+                </div>
+                <p class="viz-insight">
+                    <strong>BREAKING THE STRONGHOLD:</strong> 2022 saw UML dominance, but 2026 pre-poll sentiment shows a 24% shift toward RSP-Balen. KP Oli's fortress is cracking.
+                </p>
+            </div>
+
+            <!-- Gen Z Demographic -->
+            <div class="viz-card reveal">
+                <h3 class="viz-title">Gen Z Power: 1 Million New Voices</h3>
+                <div class="chart-container">
+                    <canvas id="genZChart"></canvas>
+                </div>
+                <p class="viz-insight">
+                    <strong>DEMOGRAPHIC REVOLUTION:</strong> Post-2025 protests, 1 million Gen Z voters registered. 78% favor systemic change over traditional parties. This is the generation that will rewrite Nepal's politics.
+                </p>
+            </div>
+
+            <!-- Predictive Analysis -->
+            <div class="viz-card reveal">
+                <h3 class="viz-title">2026 Projection: Urban Domination</h3>
+                <div class="chart-container">
+                    <canvas id="projectionChart"></canvas>
+                </div>
+                <p class="viz-insight">
+                    <strong>MAJORITY INCOMING:</strong> Current polling shows RSP leading in 82% of urban and semi-urban constituencies. With Balen at the helm, the alternative power is on track for a historic majority.
+                </p>
+            </div>
+        </div>
+
+        <!-- Detailed Comparison Table -->
+        <div class="viz-card reveal">
+            <h3 class="viz-title">2022 KMC Election: Complete Results</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Candidate</th>
+                        <th>Party</th>
+                        <th>Votes</th>
+                        <th>Percentage</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="winner-row">
+                        <td><strong>Balen Shah</strong></td>
+                        <td>Independent</td>
+                        <td>61,767</td>
+                        <td>38.6%</td>
+                        <td>✓ WINNER</td>
+                    </tr>
+                    <tr>
+                        <td>Keshav Sthapit</td>
+                        <td>CPN-UML</td>
+                        <td>48,579</td>
+                        <td>30.4%</td>
+                        <td>Runner-up</td>
+                    </tr>
+                    <tr>
+                        <td>Srijana Singh</td>
+                        <td>Nepali Congress</td>
+                        <td>46,686</td>
+                        <td>29.2%</td>
+                        <td>Third Place</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="viz-insight" style="margin-top: 2rem;">
+                <strong>THE OUTSIDER ADVANTAGE:</strong> With zero party infrastructure, Balen defeated two major establishment candidates by over 13,000 votes. This wasn't luck—it was a mandate for change.
+            </p>
+        </div>
+    </section>
+
+    <!-- Transparency Dashboard -->
+    <section id="achievements">
+        <div class="section-header reveal">
+            <h2 class="section-title">PROVEN LEADERSHIP</h2>
+            <p class="section-subtitle">From Kathmandu Mayor to Prime Ministerial Candidate. Track Record Matters.</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="achievement-card reveal">
+                <div class="achievement-icon">🎥</div>
+                <h3 class="achievement-title">Live Municipal Meetings</h3>
+                <p class="achievement-desc">Every meeting livestreamed. Every decision transparent. Every rupee accounted for. This is democracy 2.0.</p>
+            </div>
+
+            <div class="achievement-card reveal">
+                <div class="achievement-icon">♻️</div>
+                <h3 class="achievement-title">Waste Management Revolution</h3>
+                <p class="achievement-desc">Reduced waste by 40% in two years. Kathmandu is cleaner. Systems work when leadership works.</p>
+            </div>
+
+            <div class="achievement-card reveal">
+                <div class="achievement-icon">🎓</div>
+                <h3 class="achievement-title">10% Scholarship Mandate</h3>
+                <p class="achievement-desc">Every private school now reserves 10% seats for underprivileged students. Education is a right, not a privilege.</p>
+            </div>
+
+            <div class="achievement-card reveal">
+                <div class="achievement-icon">🏗️</div>
+                <h3 class="achievement-title">Infrastructure Overhaul</h3>
+                <p class="achievement-desc">Roads rebuilt, drainage fixed, parks restored. Kathmandu looks and feels different because action beats rhetoric.</p>
+            </div>
+
+            <div class="achievement-card reveal">
+                <div class="achievement-icon">💰</div>
+                <h3 class="achievement-title">Zero Corruption Tolerance</h3>
+                <p class="achievement-desc">Audits published online. Contracts transparent. No backdoor deals. No exceptions.</p>
+            </div>
+
+            <div class="achievement-card reveal">
+                <div class="achievement-icon">📱</div>
+                <h3 class="achievement-title">Digital-First Governance</h3>
+                <p class="achievement-desc">Online permits, digital payments, real-time tracking. Government shouldn't be a hassle—it should be a service.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Alliance -->
+    <section id="alliance">
+        <div class="alliance-banner reveal">
+            <h3>THE RSP-BALEN ALLIANCE</h3>
+            <p style="color: white; font-size: 1.2rem; max-width: 800px; margin: 0 auto;">
+                Rastriya Swatantra Party meets Independent Power. Together, we're building the alternative Nepal deserves.
+            </p>
+            <div class="alliance-logos">
+                <div class="logo-box">RSP</div>
+                <div style="font-size: 3rem; color: white;">+</div>
+                <div class="logo-box">BALEN</div>
+            </div>
+        </div>
+
+        <div class="section-header reveal" style="margin-top: 4rem;">
+            <h2 class="section-title">OUR AGENDA</h2>
+            <p class="section-subtitle">Five pillars to transform Nepal from a broken system to a modern democracy.</p>
+        </div>
+
+        <div class="agenda-grid">
+            <div class="agenda-card reveal">
+                <div class="agenda-number">01</div>
+                <h4 class="agenda-title">Directly Elected Prime Minister</h4>
+                <p class="agenda-desc">End coalition chaos. Give people the power to choose their PM directly. Accountability starts with electoral reform.</p>
+            </div>
+
+            <div class="agenda-card reveal">
+                <div class="agenda-number">02</div>
+                <h4 class="agenda-title">Systemic Anti-Corruption</h4>
+                <p class="agenda-desc">Not just arrests. Structural change. Independent watchdogs, real-time audits, and harsh penalties for corruption at every level.</p>
+            </div>
+
+            <div class="agenda-card reveal">
+                <div class="agenda-number">03</div>
+                <h4 class="agenda-title">Youth & Innovation Economy</h4>
+                <p class="agenda-desc">Stop the brain drain. Invest in tech hubs, startup funds, and innovation corridors. Make Nepal a place where young people want to build careers.</p>
+            </div>
+
+            <div class="agenda-card reveal">
+                <div class="agenda-number">04</div>
+                <h4 class="agenda-title">Infrastructure Modernization</h4>
+                <p class="agenda-desc">Roads, energy, water, internet. The basics matter. No more excuses. Build the infrastructure a 21st-century nation needs.</p>
+            </div>
+
+            <div class="agenda-card reveal">
+                <div class="agenda-number">05</div>
+                <h4 class="agenda-title">Transparent Governance</h4>
+                <p class="agenda-desc">Every budget online. Every contract public. Every meeting livestreamed. Government works for the people—act like it.</p>
+            </div>
+
+            <div class="agenda-card reveal">
+                <div class="agenda-number">06</div>
+                <h4 class="agenda-title">Education & Healthcare Access</h4>
+                <p class="agenda-desc">Quality education and healthcare are non-negotiable. Expand scholarships, build clinics, and ensure no Nepali is left behind.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Voter Map -->
+    <section id="map">
+        <div class="section-header reveal">
+            <h2 class="section-title">BATTLEGROUND SEATS</h2>
+            <p class="section-subtitle">Track RSP-Balen presence across Nepal's key constituencies.</p>
+        </div>
+
+        <div class="map-container reveal">
+            <div class="map-visual">
+                <div class="map-marker" style="top: 20%; left: 70%;" title="Jhapa-5">
+                    <span>J-5</span>
+                </div>
+                <div class="map-marker" style="top: 40%; left: 50%;" title="Kathmandu-1">
+                    <span>K-1</span>
+                </div>
+                <div class="map-marker" style="top: 50%; left: 45%;" title="Lalitpur">
+                    <span>LP</span>
+                </div>
+                <div class="map-marker" style="top: 35%; left: 30%;" title="Pokhara">
+                    <span>PK</span>
+                </div>
+                <div class="map-marker" style="top: 60%; left: 55%;" title="Bhaktapur">
+                    <span>BP</span>
+                </div>
+            </div>
+
+            <div class="map-info">
+                <div class="map-stat">
+                    <div style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--primary);">Jhapa-5</div>
+                    <div>KP Oli's Stronghold</div>
+                    <div style="margin-top: 0.5rem; color: var(--accent);">RSP Polling: 42% (+24 from 2022)</div>
+                </div>
+                <div class="map-stat">
+                    <div style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--primary);">Kathmandu-1</div>
+                    <div>Urban Core</div>
+                    <div style="margin-top: 0.5rem; color: var(--accent);">RSP Leading: 67%</div>
+                </div>
+                <div class="map-stat">
+                    <div style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--primary);">Lalitpur</div>
+                    <div>Youth Stronghold</div>
+                    <div style="margin-top: 0.5rem; color: var(--accent);">RSP Leading: 71%</div>
+                </div>
+                <div class="map-stat">
+                    <div style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--primary);">Pokhara</div>
+                    <div>Tourist Hub</div>
+                    <div style="margin-top: 0.5rem; color: var(--accent);">RSP Leading: 58%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Tracker -->
+    <section id="donate">
+        <div class="section-header reveal">
+            <h2 class="section-title">GRASSROOTS POWER</h2>
+            <p class="section-subtitle">No corporate donors. No foreign money. Just people who believe in change.</p>
+        </div>
+
+        <div class="donation-tracker reveal">
+            <div class="donation-amount">NPR 47,32,891</div>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <span style="font-family: 'Space Mono', monospace; color: var(--accent); font-size: 1.2rem;">
+                    <span class="loading"></span> LIVE GRASSROOTS FUNDING
+                </span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 78%"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 1rem; font-family: 'Space Mono', monospace; font-size: 0.9rem;">
+                <span>Current: NPR 47L</span>
+                <span style="color: var(--accent);">Goal: NPR 60L</span>
+            </div>
+
+            <div class="payment-options">
+                <button class="payment-btn">
+                    <span style="font-size: 1.5rem;">📱</span><br>eSewa
+                </button>
+                <button class="payment-btn">
+                    <span style="font-size: 1.5rem;">💳</span><br>Khalti
+                </button>
+                <button class="payment-btn">
+                    <span style="font-size: 1.5rem;">🏦</span><br>Bank Transfer
+                </button>
+            </div>
+
+            <p style="text-align: center; margin-top: 2rem; color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">
+                All donations are publicly tracked. Every rupee is accounted for. Transparency isn't optional—it's mandatory.
+            </p>
+        </div>
+    </section>
+
+    <!-- Social Media Hub -->
+    <section id="social">
+        <div class="section-header reveal">
+            <h2 class="section-title">LIVE UPDATES</h2>
+            <p class="section-subtitle">Follow the movement in real-time. Social media restored. Democracy amplified.</p>
+        </div>
+
+        <div class="social-feed">
+            <div class="social-card reveal">
+                <div class="social-platform">📘</div>
+                <div class="social-content">
+                    "The 2025 protests weren't just about social media bans—they were about freedom. Gen Z showed up. Now it's our turn to show up for them. #Mission2026"
+                </div>
+                <div class="social-meta">Facebook • 2 hours ago • 34.2K reactions</div>
+            </div>
+
+            <div class="social-card reveal">
+                <div class="social-platform">🐦</div>
+                <div class="social-content">
+                    "They called us outsiders in 2022. They said we couldn't win. We won by 13,000 votes. Now they're scared. And they should be. #AlternativePower"
+                </div>
+                <div class="social-meta">Twitter • 5 hours ago • 28.7K retweets</div>
+            </div>
+
+            <div class="social-card reveal">
+                <div class="social-platform">📸</div>
+                <div class="social-content">
+                    "Visited Jhapa-5 today. The energy is electric. People are tired of empty promises. They want results. We're ready to deliver. 🔥"
+                </div>
+                <div class="social-meta">Instagram • 8 hours ago • 91.3K likes</div>
+            </div>
+
+            <div class="social-card reveal">
+                <div class="social-platform">🎥</div>
+                <div class="social-content">
+                    "New video: Why the Directly Elected PM model will end coalition chaos. Watch, share, debate. Democracy thrives on discourse."
+                </div>
+                <div class="social-meta">YouTube • 1 day ago • 156K views</div>
+            </div>
+
+            <div class="social-card reveal">
+                <div class="social-platform">💬</div>
+                <div class="social-content">
+                    "Town hall in Pokhara tomorrow, 4 PM. No scripts. No handlers. Just questions and answers. That's how leaders should operate."
+                </div>
+                <div class="social-meta">TikTok • 1 day ago • 203K views</div>
+            </div>
+
+            <div class="social-card reveal">
+                <div class="social-platform">📱</div>
+                <div class="social-content">
+                    "Corruption isn't a bug in the system—it IS the system. Time to reboot. Time for the alternative. Time for change. 💪"
+                </div>
+                <div class="social-meta">WhatsApp Status • 2 days ago</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prediction Section -->
+    <section id="prediction">
+        <div class="section-header reveal">
+            <h2 class="section-title">WHY WE WILL WIN</h2>
+            <p class="section-subtitle">This isn't hope. This is data-driven certainty.</p>
+        </div>
+
+        <div class="viz-grid">
+            <div class="viz-card reveal">
+                <h3 class="viz-title">Factor 1: The Gen Z Tsunami</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.8;">
+                    The 2025 protests weren't just about TikTok bans—they were a political awakening. 1 million new Gen Z voters registered. 78% favor systemic change over traditional parties. This demographic shift alone could swing 15-20 seats in urban areas.
+                </p>
+            </div>
+
+            <div class="viz-card reveal">
+                <h3 class="viz-title">Factor 2: Alternative Alliance</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.8;">
+                    By joining RSP, Balen isn't just an independent anymore—he has a nationwide organizational machine. RSP's grassroots network + Balen's proven leadership = a formidable electoral force that traditional parties can't match.
+                </p>
+            </div>
+
+            <div class="viz-card reveal">
+                <h3 class="viz-title">Factor 3: Incumbency Exhaustion</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.8;">
+                    The "Old Guard" (Deuba, Oli, Dahal) are facing historic disapproval ratings following 2025's political unrest. Voters are done with recycled faces and broken promises. The establishment's time is up.
+                </p>
+            </div>
+
+            <div class="viz-card reveal">
+                <h3 class="viz-title">The Math Is Simple</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.8;">
+                    Urban & semi-urban constituencies: 82% polling toward RSP-Balen<br>
+                    Gen Z turnout projection: 89% (highest in history)<br>
+                    Anti-establishment sentiment: 67% of all voters<br><br>
+                    <strong style="color: var(--accent); font-size: 1.3rem;">Result: Majority government. Directly elected PM. Nepal transformed.</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Mission 2026</h4>
+                <p style="color: rgba(255, 255, 255, 0.6); line-height: 1.6;">
+                    The alternative power isn't just a campaign—it's a movement. Join us in building the Nepal we deserve.
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#data">The Data</a></li>
+                    <li><a href="#achievements">Track Record</a></li>
+                    <li><a href="#alliance">The Alliance</a></li>
+                    <li><a href="#donate">Donate</a></li>
+                    <li><a href="#social">Social Hub</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Get Involved</h4>
+                <ul class="footer-links">
+                    <li><a href="#volunteer">Volunteer</a></li>
+                    <li><a href="#events">Events Calendar</a></li>
+                    <li><a href="#merchandise">Campaign Merchandise</a></li>
+                    <li><a href="#press">Press & Media</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Stay Connected</h4>
+                <ul class="footer-links">
+                    <li><a href="#facebook">Facebook</a></li>
+                    <li><a href="#twitter">Twitter/X</a></li>
+                    <li><a href="#instagram">Instagram</a></li>
+                    <li><a href="#youtube">YouTube</a></li>
+                    <li><a href="#tiktok">TikTok</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>© 2026 Mission 2026: The Alternative Power | Paid for by Grassroots Donors | Not authorized by any candidate or candidate's committee</p>
+            <p style="margin-top: 0.5rem;">All donation data is publicly available. Transparency is non-negotiable.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Chart.js Configurations
+        Chart.defaults.color = '#fff';
+        Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+
+        // 2022 Victory Chart
+        const victoryCtx = document.getElementById('victoryChart').getContext('2d');
+        new Chart(victoryCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Balen Shah\n(Independent)', 'Keshav Sthapit\n(CPN-UML)', 'Srijana Singh\n(Nepali Congress)'],
+                datasets: [{
+                    label: 'Votes',
+                    data: [61767, 48579, 46686],
+                    backgroundColor: [
+                        'rgba(255, 59, 48, 0.8)',
+                        'rgba(0, 217, 255, 0.6)',
+                        'rgba(255, 193, 7, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 59, 48, 1)',
+                        'rgba(0, 217, 255, 1)',
+                        'rgba(255, 193, 7, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'Votes: ' + context.parsed.y.toLocaleString();
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Jhapa-5 Chart
+        const jhapaCtx = document.getElementById('jhapaChart').getContext('2d');
+        new Chart(jhapaCtx, {
+            type: 'line',
+            data: {
+                labels: ['2022 Results', '2026 Pre-Poll'],
+                datasets: [
+                    {
+                        label: 'CPN-UML',
+                        data: [54, 38],
+                        borderColor: 'rgba(255, 255, 255, 0.5)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'RSP-Balen',
+                        data: [18, 42],
+                        borderColor: 'rgba(255, 59, 48, 1)',
+                        backgroundColor: 'rgba(255, 59, 48, 0.2)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Nepali Congress',
+                        data: [28, 20],
+                        borderColor: 'rgba(0, 217, 255, 0.5)',
+                        backgroundColor: 'rgba(0, 217, 255, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 15,
+                            font: {
+                                family: "'Space Mono', monospace"
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 60,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gen Z Chart
+        const genZCtx = document.getElementById('genZChart').getContext('2d');
+        new Chart(genZCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Gen Z (New Voters)', 'Millennials', 'Gen X', 'Boomers'],
+                datasets: [{
+                    data: [28, 35, 22, 15],
+                    backgroundColor: [
+                        'rgba(255, 59, 48, 0.8)',
+                        'rgba(0, 217, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.3)',
+                        'rgba(255, 255, 255, 0.15)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 59, 48, 1)',
+                        'rgba(0, 217, 255, 1)',
+                        'rgba(255, 255, 255, 0.5)',
+                        'rgba(255, 255, 255, 0.3)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 15,
+                            font: {
+                                family: "'Space Mono', monospace"
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + '% of voter base';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Projection Chart
+        const projectionCtx = document.getElementById('projectionChart').getContext('2d');
+        new Chart(projectionCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Urban Centers', 'Semi-Urban', 'Youth Vote', 'Professional Class', 'Migrant Workers'],
+                datasets: [
+                    {
+                        label: 'RSP-Balen Coalition',
+                        data: [82, 67, 89, 76, 71],
+                        borderColor: 'rgba(255, 59, 48, 1)',
+                        backgroundColor: 'rgba(255, 59, 48, 0.2)',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Traditional Parties',
+                        data: [18, 33, 11, 24, 29],
+                        borderColor: 'rgba(255, 255, 255, 0.3)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 15,
+                            font: {
+                                family: "'Space Mono', monospace"
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 20,
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        angleLines: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Scroll Reveal Animation
+        const reveals = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Smooth Scroll for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Donation Counter Animation
+        const animateCounter = (element, start, end, duration) => {
+            let startTime = null;
+            
+            const animation = (currentTime) => {
+                if (!startTime) startTime = currentTime;
+                const progress = (currentTime - startTime) / duration;
+                
+                if (progress < 1) {
+                    const current = Math.floor(start + (end - start) * progress);
+                    element.textContent = 'NPR ' + current.toLocaleString();
+                    requestAnimationFrame(animation);
+                } else {
+                    element.textContent = 'NPR ' + end.toLocaleString();
+                }
+            };
+            
+            requestAnimationFrame(animation);
+        };
+
+        // Trigger donation counter when visible
+        const donationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target.querySelector('.donation-amount');
+                    animateCounter(counter, 0, 4732891, 2000);
+                    donationObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const donationSection = document.querySelector('.donation-tracker');
+        if (donationSection) {
+            donationObserver.observe(donationSection);
+        }
+
+        // Payment Button Interactions
+        document.querySelectorAll('.payment-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                alert('Donation feature coming soon! For now, contact us directly to contribute to the grassroots movement.');
+            });
+        });
+
+        // Map Marker Interactions
+        document.querySelectorAll('.map-marker').forEach(marker => {
+            marker.addEventListener('click', function() {
+                const title = this.getAttribute('title');
+                alert(`${title} - Key battleground seat for Mission 2026. RSP-Balen showing strong momentum here!`);
+            });
+        });
+
+        // Dynamic Stats Update (simulated)
+        setInterval(() => {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                if (stat.textContent.includes('+')) {
+                    // Add subtle pulse effect
+                    stat.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        stat.style.transform = 'scale(1)';
+                    }, 200);
+                }
+            });
+        }, 5000);
+
+        console.log('%cMISSION 2026', 'font-size: 48px; font-weight: bold; color: #FF3B30;');
+        console.log('%cThe Alternative Power is loading...', 'font-size: 16px; color: #00D9FF;');
+        console.log('%cBuilt for the people. By the people. Optimized for Nepal.', 'font-size: 12px; color: #fff;');
+    </script>
+</body>
+</html>
