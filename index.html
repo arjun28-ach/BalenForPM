@@ -83,42 +83,19 @@
             animation: slideInDown 1s ease-out;
         }
 
-        /* 1. Create a container for the Title + Image */
-    .hero-header {
-        display: flex;
-        align-items: center;      /* Vertically aligns image with middle of text */
-        justify-content: center;   /* Centers the group on the page */
-        gap: 40px;                /* Space between text and Balen's portrait */
-        margin-bottom: 2rem;
-        text-align: left;         /* Keeps the h1 text aligned left */
-    }
-
-    /* 2. Update the Portrait Styling */
-    .balen-portrait {
-        /* REMOVE position: absolute, top, and right */
-        width: 160px;             /* Made slightly larger as requested */
-        height: 160px;
-        border-radius: 50%;
-        border: 4px solid var(--primary);
-        box-shadow: 0 0 40px rgba(255, 59, 48, 0.7), 0 0 80px rgba(0, 217, 255, 0.4);
-        z-index: 3;
-        animation: portraitPulse 3s ease-in-out infinite;
-        object-fit: cover;
-        flex-shrink: 0;           /* Ensures the image doesn't get squashed */
-    }
-
-    /* 3. Mobile Adjustment */
-    @media (max-width: 768px) {
-        .hero-header {
-            flex-direction: column-reverse; /* Stacks image on top for mobile */
-            gap: 20px;
-            text-align: center;
-        }
         .balen-portrait {
-            width: 120px;
-            height: 120px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid var(--primary);
+            box-shadow: 0 0 30px rgba(255, 59, 48, 0.6), 0 0 60px rgba(0, 217, 255, 0.3);
+            z-index: 3;
+            animation: portraitPulse 3s ease-in-out infinite;
+            object-fit: cover;
         }
-    }
 
         @keyframes portraitPulse {
             0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(255, 59, 48, 0.6), 0 0 60px rgba(0, 217, 255, 0.3); }
@@ -692,6 +669,39 @@
             .agenda-grid {
                 grid-template-columns: 1fr;
             }
+
+            .balen-portrait {
+                width: 70px;
+                height: 70px;
+                top: 10px;
+                right: 10px;
+            }
+
+            /* Mobile table enhancements */
+            .comparison-table-wrapper {
+                position: relative;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 4px;
+            }
+
+            .comparison-table-wrapper::after {
+                content: '← Scroll →';
+                position: absolute;
+                bottom: -30px;
+                left: 50%;
+                transform: translateX(-50%);
+                color: var(--accent);
+                font-family: 'Space Mono', monospace;
+                font-size: 0.85rem;
+                white-space: nowrap;
+                animation: fadeIn 2s ease-in-out infinite;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.9rem;
+            }
         }
 
         /* Loading Animation */
@@ -722,9 +732,16 @@
         }
 
         /* Victory Comparison Table */
+        .comparison-table-wrapper {
+            overflow-x: auto;
+            margin-top: 2rem;
+            -webkit-overflow-scrolling: touch;
+        }
+
         .comparison-table {
             width: 100%;
-            margin-top: 2rem;
+            min-width: 600px;
+            margin: 0;
             border-collapse: separate;
             border-spacing: 0;
             overflow: hidden;
@@ -739,6 +756,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
+            white-space: nowrap;
         }
 
         .comparison-table td {
@@ -761,22 +779,22 @@
 <body>
     <!-- Hero Section -->
     <section class="hero">
-    <div class="hero-content">
-        <div class="mission-badge">MISSION 2026 — नेपालको नयाँ युग</div>
-        
-        <div class="hero-header">
-            <h1>THE ALTERNATIVE<br>POWER</h1>
+        <div class="hero-content">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq5yQwnr_J-YSEjWjM4GBKjybc0G-w5mwz8mhNko3av52YiTsIQvyJFDABE9Bnb7XlQGEAtmJoQR4G9zESqz70JcaDxLGKE7lHCDnIFGE&s=10" alt="Balen Shah" class="balen-portrait">
-        </div>
-
-        <p class="subtitle">Breaking the Old Guard. Building Nepal's Future.</p>
-        <div style="max-width: 700px; margin: 0 auto 3rem; padding: 1.5rem; background: rgba(255, 59, 48, 0.1); border-left: 4px solid var(--primary); border-right: 4px solid var(--accent); animation: fadeIn 1s ease-out 0.6s both;">
+            <div class="mission-badge">MISSION 2026 — नेपालको नयाँ युग</div>
+            <h1>THE ALTERNATIVE<br>POWER</h1>
+            <p class="subtitle">Breaking the Old Guard. Building Nepal's Future.</p>
+            <div style="max-width: 700px; margin: 0 auto 3rem; padding: 1.5rem; background: rgba(255, 59, 48, 0.1); border-left: 4px solid var(--primary); border-right: 4px solid var(--accent); animation: fadeIn 1s ease-out 0.6s both;">
                 <p style="font-family: 'Space Mono', monospace; font-size: 1.1rem; line-height: 1.8; color: rgba(255, 255, 255, 0.95); margin: 0; font-style: italic;">
                     "Politics is not about parties. It's about people. When you serve with transparency, when you lead with integrity, when you put Nepal first—that's when real change happens."
                 </p>
                 <p style="text-align: right; margin-top: 1rem; color: var(--accent); font-weight: 700; font-size: 1.1rem;">— Balen Shah</p>
+            </div>
+            <div class="cta-group">
+                <a href="#vision" class="btn btn-primary">Join The Movement</a>
+                <a href="#data" class="btn btn-secondary">See The Data</a>
+            </div>
         </div>
-    </div>
     </section>
 
     <!-- Stats Bar -->
@@ -855,41 +873,43 @@
         <!-- Detailed Comparison Table -->
         <div class="viz-card reveal">
             <h3 class="viz-title">2022 KMC Election: Complete Results</h3>
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Candidate</th>
-                        <th>Party</th>
-                        <th>Votes</th>
-                        <th>Percentage</th>
-                        <th>Result</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="winner-row">
-                        <td><strong>Balen Shah</strong></td>
-                        <td>Independent</td>
-                        <td>61,767</td>
-                        <td>38.6%</td>
-                        <td>✓ WINNER</td>
-                    </tr>
-                    <tr>
-                        <td>Keshav Sthapit</td>
-                        <td>CPN-UML</td>
-                        <td>48,579</td>
-                        <td>30.4%</td>
-                        <td>Runner-up</td>
-                    </tr>
-                    <tr>
-                        <td>Srijana Singh</td>
-                        <td>Nepali Congress</td>
-                        <td>46,686</td>
-                        <td>29.2%</td>
-                        <td>Third Place</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p class="viz-insight" style="margin-top: 2rem;">
+            <div class="comparison-table-wrapper">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Candidate</th>
+                            <th>Party</th>
+                            <th>Votes</th>
+                            <th>Percentage</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="winner-row">
+                            <td><strong>Balen Shah</strong></td>
+                            <td>Independent</td>
+                            <td>61,767</td>
+                            <td>38.6%</td>
+                            <td>✓ WINNER</td>
+                        </tr>
+                        <tr>
+                            <td>Keshav Sthapit</td>
+                            <td>CPN-UML</td>
+                            <td>48,579</td>
+                            <td>30.4%</td>
+                            <td>Runner-up</td>
+                        </tr>
+                        <tr>
+                            <td>Srijana Singh</td>
+                            <td>Nepali Congress</td>
+                            <td>46,686</td>
+                            <td>29.2%</td>
+                            <td>Third Place</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="viz-insight" style="margin-top: 3rem;">
                 <strong>THE OUTSIDER ADVANTAGE:</strong> With zero party infrastructure, Balen defeated two major establishment candidates by over 13,000 votes. This wasn't luck—it was a mandate for change.
             </p>
         </div>
@@ -957,7 +977,7 @@
 
         <div class="section-header reveal" style="margin-top: 4rem;">
             <h2 class="section-title">OUR AGENDA</h2>
-            <p class="section-subtitle">Five pillars to transform Nepal from a broken system to a modern democracy.</p>
+            <p class="section-subtitle">Six pillars to transform Nepal from a broken system to a modern democracy.</p>
         </div>
 
         <div class="agenda-grid">
